@@ -4,44 +4,44 @@
 require("scripts.common.choose_quality")
 
 ----------------------------
--- ƒ}ƒbƒv¶¬‚Ì‘ƒ‚Æƒ[ƒ€‚ğ’uŠ·
+-- ãƒãƒƒãƒ—ç”Ÿæˆæ™‚ã®å·£ã¨ãƒ¯ãƒ¼ãƒ ã‚’ç½®æ›
 -- ----------------------------
 script.on_event(defines.events.on_chunk_generated, function(event)
 	local spawners = event.surface.find_entities_filtered{area = event.area, name = {"biter-spawner", "spitter-spawner", "gleba-spawner-small", "gleba-spawner"}}
 	for _, spawner in pairs(spawners) do
-		-- •i¿ˆ—
+		-- å“è³ªå‡¦ç†
 		replace_common(spawner)
 	end
 
 	local worms = event.surface.find_entities_filtered{area = event.area, type = "turret", name = {"small-worm-turret", "medium-worm-turret", "big-worm-turret", "behemoth-worm-turret"}}
 	for _, worm in pairs(worms) do
-		-- •i¿ˆ—
+		-- å“è³ªå‡¦ç†
 		replace_common(worm)
 	end
 end)
 
 -- ----------------------------
--- V‹KƒXƒ|[ƒ“ƒCƒxƒ“ƒg‚É‚Ä
+-- æ–°è¦ã‚¹ãƒãƒ¼ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã«ã¦
 -- ----------------------------
 script.on_event(defines.events.on_entity_spawned, function(event)
-	-- •i¿ˆ—
+	-- å“è³ªå‡¦ç†
 	replace_common(event.entity)
 end)
 
 -- ----------------------------
--- •i¿ˆ—
+-- å“è³ªå‡¦ç†
 -- ----------------------------
 function replace_common(entity)
-	-- ƒoƒCƒ^[Aƒ[ƒ€AƒoƒCƒ^[‚Ì‘ƒ‚Ì’uŠ·
+	-- ãƒã‚¤ã‚¿ãƒ¼ã€ãƒ¯ãƒ¼ãƒ ã€ãƒã‚¤ã‚¿ãƒ¼ã®å·£ã®ç½®æ›
 	if (entity.type == "unit" or entity.type == "spider-unit" or entity.type == "turret" or entity.name == "biter-spawner") and entity.force.name == "enemy" then
 		
-		-- i‰»“x‚Ìæ“¾
+		-- é€²åŒ–åº¦ã®å–å¾—
 		local evolution_factor = game.forces["enemy"].get_evolution_factor(entity.surface)
 		
-		-- •i¿‚ÌŒˆ’è
+		-- å“è³ªã®æ±ºå®š
 		local quality = choose_quality(evolution_factor)
 		
-		-- ƒ†ƒjƒbƒg‚ÌÄ”z’u
+		-- ãƒ¦ãƒ‹ãƒƒãƒˆã®å†é…ç½®
 		if(quality ~= "normal") then
 			replace_with_high_quality(entity, quality)
 		end
@@ -50,7 +50,7 @@ end
 
 
 -- ----------------------------
--- ƒ†ƒjƒbƒg‚ÌÄ”z’u ƒ[ƒ€‚Í’Ç‰Á”z’u(”ñ“¯Šúˆ—ƒLƒƒƒbƒ`•s‰Â)
+-- ãƒ¦ãƒ‹ãƒƒãƒˆã®å†é…ç½® ãƒ¯ãƒ¼ãƒ ã¯è¿½åŠ é…ç½®(éåŒæœŸå‡¦ç†ã‚­ãƒ£ãƒƒãƒä¸å¯)
 -- ----------------------------
 function replace_with_high_quality(old_entity, strquality)
 	
@@ -62,15 +62,15 @@ function replace_with_high_quality(old_entity, strquality)
 			and old_entity.quality ~= "uncommon"
 			)
 		) then
-		-- ƒ†ƒjƒbƒg‚ÌÄ”z’u ƒ[ƒ€(ƒ[ƒ€‚Í”j‰ó‚È‚µ)
+		-- ãƒ¦ãƒ‹ãƒƒãƒˆã®å†é…ç½® ãƒ¯ãƒ¼ãƒ (ãƒ¯ãƒ¼ãƒ ã¯ç ´å£Šãªã—)
 		local result = place_warm(old_entity, strquality)
-		-- İ’uŒã‚É”j‰ó
+		-- è¨­ç½®å¾Œã«ç ´å£Š
 		if result == "success" then
 			old_entity.destroy()
 		end
 
 	else
-		-- ƒ[ƒ€ˆÈŠO‚Í”j‰ó
+		-- ãƒ¯ãƒ¼ãƒ ä»¥å¤–ã¯ç ´å£Š
 		local name = old_entity.name
 		local surface = old_entity.surface
 		local position = old_entity.position
@@ -91,7 +91,7 @@ end
 
 
 -- ----------------------------
--- ƒ†ƒjƒbƒg‚ÌÄ”z’u ƒ[ƒ€(‰Šúƒ[ƒ€‚Í”j‰ó)
+-- ãƒ¦ãƒ‹ãƒƒãƒˆã®å†é…ç½® ãƒ¯ãƒ¼ãƒ (åˆæœŸãƒ¯ãƒ¼ãƒ ã¯ç ´å£Š)
 -- ----------------------------
 function place_warm(old_entity, strquality)
 
@@ -100,7 +100,7 @@ function place_warm(old_entity, strquality)
 	
 	local min_distance = 3
 	local max_distance = 5
-	-- İ’u‰Â”\À•W‚ğ¶ã‚©‚ç’Tõ
+	-- è¨­ç½®å¯èƒ½åº§æ¨™ã‚’å·¦ä¸Šã‹ã‚‰æ¢ç´¢
     for dx = -max_distance, max_distance do
 	    for dy = -max_distance, max_distance do
 	    	local distance = dx*dx + dy*dy
