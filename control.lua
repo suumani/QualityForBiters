@@ -33,7 +33,14 @@ end)
 -- ----------------------------
 function replace_common(entity)
 	-- バイター、ワーム、バイターの巣の置換
-	if (entity.type == "unit" or entity.type == "spider-unit" or entity.type == "turret" or entity.name == "biter-spawner") and entity.force.name == "enemy" then
+	if (
+		entity.type == "unit" or 
+		entity.type == "spider-unit" or 
+		entity.type == "turret" or 
+		entity.name == "biter-spawner" or 
+		entity.name == "gleba-spawner" or 
+		entity.name == "gleba-spawner-corpse" 
+	) and entity.force.name == "enemy" then
 		
 		-- 進化度の取得
 		local evolution_factor = game.forces["enemy"].get_evolution_factor(entity.surface)
