@@ -39,7 +39,8 @@ function replace_common(entity)
 		entity.type == "turret" or 
 		entity.name == "biter-spawner" or 
 		entity.name == "gleba-spawner" or 
-		entity.name == "gleba-spawner-corpse" 
+		entity.name == "gleba-spawner-corpse" or
+		entity.name == "gleba-spawner-corpse-small"
 	) and entity.force.name == "enemy" then
 		
 		-- 進化度の取得
