@@ -1,9 +1,15 @@
 {
     "name": "BiterShield2",
-    "version": "0.1.5",
+    "version": "0.1.7",
     "factorio_version": "2.0",
     "title": "Quality for Biters!",
     "author": "suumani",
     "description": "Players will be environmentally friendly ;)",
-    "thumbnail": "thumbnail.png"
+    "thumbnail": "thumbnail.png",
+    "dependencies": [
+    "base >= 2.0.0",
+    "elevated-rails >= 2.0.0",
+    "quality >= 2.0.0",
+    "space-age >= 2.0.0"
+    ]
 }
