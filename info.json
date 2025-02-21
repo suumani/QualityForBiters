@@ -1,6 +1,6 @@
 {
     "name": "BiterShield2",
-    "version": "0.1.8",
+    "version": "0.2.1",
     "factorio_version": "2.0",
     "title": "Quality for Biters!",
     "author": "suumani",
@@ -8,8 +8,11 @@
     "thumbnail": "thumbnail.png",
     "dependencies": [
     "base >= 2.0.0",
-    "elevated-rails >= 2.0.0",
     "quality >= 2.0.0",
-    "space-age >= 2.0.0"
+    "? Cold_biters >= 2.0.0",
+    "? Explosive_biters >= 2.2.0",
+    "? Toxic_biters >= 2.0.0",
+    "? ArmouredBiters",
+    "? Big-Monsters >= 2.0.0"
     ]
 }
