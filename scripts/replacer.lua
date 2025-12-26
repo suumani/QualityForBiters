@@ -40,7 +40,7 @@ local function process_entity(entity)
   -- enemy evolution（surface依存）
   local evo = game.forces.enemy.get_evolution_factor(entity.surface)
 
-  local quality = QualityRoller.choose_quality(evo, Drand.random())
+  local quality = QualityRoller.choose_quality(evo, DRand.random())
   if quality and quality ~= "normal" then
     replace_with_high_quality(entity, quality)
   end
