@@ -1,4 +1,5 @@
 local QualityRoller = require("__Manis_lib__/scripts/rollers/QualityRoller")
+local DRand = require("scripts.util.DeterministicRandom")
 
 --- Replacer
 --- 責務: 対象エンティティ（敵ユニット/巣/ワーム等）の品質判定と置換を行う。
@@ -39,7 +40,7 @@ local function process_entity(entity)
   -- enemy evolution（surface依存）
   local evo = game.forces.enemy.get_evolution_factor(entity.surface)
 
-  local quality = QualityRoller.choose_quality(evo)
+  local quality = QualityRoller.choose_quality(evo, Drand.random())
   if quality and quality ~= "normal" then
     replace_with_high_quality(entity, quality)
   end

@@ -1,6 +1,12 @@
 local Replacer = require("scripts.replacer")
+local DRand = require("scripts.util.DeterministicRandom")
 
 script.on_init(function()
+  DRand.init(1025025)
+end)
+
+script.on_configuration_changed(function()
+  DRand.init(1025025)
 end)
 
 -- マップ生成時の巣とワームを置換

@@ -1,6 +1,6 @@
 {
     "name": "BiterShield2",
-    "version": "0.2.3",
+    "version": "0.2.5",
     "factorio_version": "2.0",
     "title": "Quality for Biters!",
     "author": "suumani",
@@ -9,7 +9,7 @@
     "dependencies": [
     "base >= 2.0.0",
     "quality >= 2.0.0",
-    "Manis_lib >= 0.0.3",
+    "Manis_lib >= 0.0.4",
     "? Cold_biters >= 2.0.0",
     "? Explosive_biters >= 2.2.0",
     "? Toxic_biters >= 2.0.0",
