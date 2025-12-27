@@ -1,22 +1,10 @@
 local QualityRoller = require("__Manis_lib__/scripts/rollers/QualityRoller")
 local DRand = require("scripts.util.DeterministicRandom")
+local TargetFilter = require("scripts.services.target_filter")
 
 --- Replacer
 --- 責務: 対象エンティティ（敵ユニット/巣/ワーム等）の品質判定と置換を行う。
 local Replacer = {}
-
-local function is_target_enemy(entity)
-  if not (entity and entity.valid) then return false end
-  if not (entity.force and entity.force.name == "enemy") then return false end
-
-  local t = entity.type
-  return (
-    t == "unit" or
-    t == "spider-unit" or
-    t == "turret" or
-    t == "unit-spawner"
-  )
-end
 
 local function replace_with_high_quality(old_entity, quality)
   -- 重要: old_entity は valid 前提
@@ -35,7 +23,7 @@ local function replace_with_high_quality(old_entity, quality)
 end
 
 local function process_entity(entity)
-  if not is_target_enemy(entity) then return end
+  if not TargetFilter.is_target_enemy(entity) then return end
 
   -- enemy evolution（surface依存）
   local evo = game.forces.enemy.get_evolution_factor(entity.surface)
