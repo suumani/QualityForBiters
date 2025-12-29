@@ -48,7 +48,7 @@ for i, entry in ipairs(PACK_ORDER) do
   local pack = Catalog.packs[pack_key]
   if pack then
     local available = is_pack_available(pack_key, pack)
-    local suffix = available and "" or "（無効）"
+    local suffix = available and "" or "（invalid）"
 
     data:extend({
       {
