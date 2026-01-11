@@ -9,7 +9,7 @@ data:extend({
 		icon = "__BiterShield2__/graphics/technology/technology-quality-for-biters-clear.png",
 		prerequisites = {"space-science-pack"},	-- Previous research as a prerequisite
 		unit = {
-			count_formula = "1000000*(L^1.5)",	-- Formula for increasing cost per level
+			count_formula = "1000000",	-- Formula for increasing cost per level
 			ingredients = {
 			{"automation-science-pack", 1},
 			{"logistic-science-pack", 1},
@@ -21,7 +21,6 @@ data:extend({
 			},
 			time = 60
 		},
-		max_level = "infinite",	-- Infinite research
 		effects = {
 			{
 			type = "nothing",
