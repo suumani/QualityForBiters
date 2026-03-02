@@ -1,4 +1,4 @@
--- control.lua
+-- __BiterShield2__/control.lua
 local Replacer = require("scripts.replacer")
 local DRand = require("scripts.util.DeterministicRandom")
 local TargetFilter = require("scripts.services.target_filter")
@@ -8,12 +8,12 @@ local function rebuild_filter_cache()
 end
 
 script.on_init(function()
-  DRand.init(1025025)
+  DRand.init()
   rebuild_filter_cache()
 end)
 
 script.on_configuration_changed(function()
-  DRand.init(1025025)
+  DRand.init()
   rebuild_filter_cache()
 end)
 
