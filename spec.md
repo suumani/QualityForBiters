@@ -48,7 +48,6 @@ This document records the **design intent, specifications, and agreed decisions*
 
 ## 4. Compatibility
 
-- Depends on Manis_lib
 - Requires the Quality mod
 - Does not alter global enemy AI or behavior
 
