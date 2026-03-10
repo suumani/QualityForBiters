@@ -1,4 +1,20 @@
--- __BiterShield2__/control.lua
+-- ------------------------------------------------------------
+-- 責務:
+--   QFB Mod のイベント境界を管理する。
+--
+--   - Mod 初期化時に DeterministicRandom を初期化する
+--   - TargetFilter のキャッシュを構築する
+--   - runtime mod setting 変更時にフィルタキャッシュを更新する
+--   - マップ生成時の敵エンティティを Replacer に委譲する
+--   - 新規スポーン敵エンティティを Replacer に委譲する
+--
+-- 設計方針:
+--   本ファイルはイベント境界のみを担当し、
+--   実際の処理ロジックは各サービスクラスに委譲する。
+--
+--   on_chunk_generated / on_entity_spawned は高頻度イベントのため
+--   pcall 等の例外ラップは行わず、処理コストを最優先とする。
+-- ------------------------------------------------------------
 local Replacer = require("scripts.replacer")
 local DRand = require("scripts.util.DeterministicRandom")
 local TargetFilter = require("scripts.services.target_filter")

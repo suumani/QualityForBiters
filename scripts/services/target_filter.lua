@@ -1,15 +1,18 @@
 -- __QuickFlipBiter__/scripts/domain/target_filter.lua
 -- ------------------------------------------------------------
--- Responsibility:
---   Determine whether an enemy entity is a valid QFB target.
+-- 責務:
+--   エンティティが QFB の置換対象となる敵かどうかを判定する。
 --
---   - Build an exclusion set from qfb_catalog packs.
---   - Respect runtime mod settings (qfb-pack-*).
---   - Respect mod availability (script.active_mods).
---   - Cache the exclusion name set in module memory.
+--   - qfb_catalog に定義された pack 情報を参照し、
+--     除外対象となる entity.name の集合を構築する。
+--   - runtime mod setting (qfb-pack-*) を参照し、
+--     pack が OFF の場合はその pack に含まれる name を除外する。
+--   - script.active_mods を参照し、対象 Mod が存在する pack のみ考慮する。
+--   - 除外 name 集合は module 内キャッシュとして保持する。
 --
---   This module cache is NOT persisted in storage because
---   the data is fully reconstructible from catalog + settings.
+-- 設計方針:
+--   この除外集合は catalog と settings から常に再構築可能な情報であるため、
+--   storage には保存せず module-local キャッシュとして保持する。
 -- ------------------------------------------------------------
 
 local Catalog = require("scripts.defines.qfb_catalog")

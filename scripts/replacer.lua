@@ -1,24 +1,33 @@
 -- __BiterShield2__/scripts/replacer.lua
 -- ------------------------------------------------------------
--- Responsibility:
---   Roll quality for target enemy entities (spawner/worm etc) and replace them.
+-- 責務:
+--   対象となる敵エンティティ（巣・ワームなど）に対して品質ロールを行い、
+--   必要に応じて品質付きエンティティへ置換する。
 --
--- Base window:
---   QualityRoller.choose_quality(evo, r) returns base_steps (0..4):
---     0=normal, 1=uncommon, 2=rare, 3=epic, 4=legendary
+-- 基本ロジック:
+--   QualityRoller.choose_quality(evo, r) により base_steps (0..4) を取得する。
+--     0 = normal
+--     1 = uncommon
+--     2 = rare
+--     3 = epic
+--     4 = legendary
 --
--- Extension (QFB_MoreQualities):
---   If mod "QFB_MoreQualities" is active, apply "window shift" above legendary:
---     final_steps = base_steps + unlock_steps
---   where unlock_steps is derived from player research level:
---     qfb-biter-quality-shift (infinite tech)
---     unlock_steps = (tech.level - 1)
+-- 拡張機能 (QFB_MoreQualities):
+--   Mod "QFB_MoreQualities" が有効な場合、
+--   legendary 以上の品質拡張（window shift）を適用する。
 --
--- Notes:
---   - DeterministicRandom is used (synced RNG).
---   - Quality chain is resolved at runtime via prototypes.quality (normal -> next -> ...).
---   - Quality chain is cached (built once) to avoid per-entity overhead.
---   - Final quality passed to create_entity is QualityID (string = prototype name).
+--   final_steps = base_steps + unlock_steps
+--
+--   unlock_steps はプレイヤー研究レベルから取得する。
+--     技術: qfb-biter-quality-shift (無限研究)
+--     unlock_steps = tech.level - 1
+--
+-- 実装方針:
+--   - 乱数は DeterministicRandom を使用し、同期乱数とする。
+--   - 品質チェーンは prototypes.quality を使用して
+--     normal -> next -> next ... の順で解決する。
+--   - 品質チェーンは一度だけ構築しキャッシュする。
+--   - create_entity に渡す品質は QualityID（prototype.name）とする。
 -- ------------------------------------------------------------
 
 local QualityRoller = require("scripts.rollers.QualityRoller")
@@ -117,9 +126,10 @@ local function replace_with_quality(old_entity, quality_id)
     quality  = quality_id
   }
 
+  -- 設計意図：削除を優先し、create_entityの安全性を確保
   old_entity.destroy()
 
-  -- create_entity may fail (collision etc) and return nil.
+  -- 生成失敗時のnil返却を許容（例外のreplace失敗より処理速度優先）
   return surface.create_entity(params)
 end
 
