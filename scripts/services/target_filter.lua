@@ -1,6 +1,23 @@
--- target_filter.lua
+-- __QuickFlipBiter__/scripts/domain/target_filter.lua
+-- ------------------------------------------------------------
+-- Responsibility:
+--   Determine whether an enemy entity is a valid QFB target.
+--
+--   - Build an exclusion set from qfb_catalog packs.
+--   - Respect runtime mod settings (qfb-pack-*).
+--   - Respect mod availability (script.active_mods).
+--   - Cache the exclusion name set in module memory.
+--
+--   This module cache is NOT persisted in storage because
+--   the data is fully reconstructible from catalog + settings.
+-- ------------------------------------------------------------
+
 local Catalog = require("scripts.defines.qfb_catalog")
+
 local M = {}
+
+-- module-local cache (non-persistent)
+local excluded_name_set = nil
 
 local function get_setting_value(name)
   local s = settings.global[name]
@@ -10,13 +27,14 @@ local function get_setting_value(name)
 end
 
 local function is_pack_available(pack_key, pack)
-  -- runtime では mods ではなく script.active_mods
   if pack_key == "space_age" then
     return script.active_mods["space-age"] ~= nil
   end
+
   if pack.mod_name then
     return script.active_mods[pack.mod_name] ~= nil
   end
+
   return true
 end
 
@@ -45,20 +63,18 @@ local function build_excluded_set()
 end
 
 function M.rebuild_cache()
-  storage.qfb_excluded_name_set = build_excluded_set()
-  storage.qfb_excluded_name_set_version = (storage.qfb_excluded_name_set_version or 0) + 1
+  excluded_name_set = build_excluded_set()
 end
 
 function M.ensure_cache()
-  if storage.qfb_excluded_name_set == nil then
+  if excluded_name_set == nil then
     M.rebuild_cache()
   end
 end
 
 function M.is_target_enemy(entity)
-  -- ここはあなたの方針（握り潰さない）に合わせてガード無しでOK
   M.ensure_cache()
-  return storage.qfb_excluded_name_set[entity.name] ~= true
+  return excluded_name_set[entity.name] ~= true
 end
 
 return M
