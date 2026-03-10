@@ -1,4 +1,4 @@
--- __BiterShield2__/scripts/core/services/DeterministicRandom.lua
+-- __BiterShield2__/scripts/util/DeterministicRandom.lua
 -- ------------------------------------------------------------
 -- 責務:
 --   Factorio公式の同期乱数(LuaRandomGenerator)を使い、
@@ -16,9 +16,6 @@
 local DeterministicRandom = {}
 
 local function qfb_root()
-  if not storage then
-    error("DeterministicRandom: storage is not available.")
-  end
   storage.qfb = storage.qfb or {}
   return storage.qfb
 end
